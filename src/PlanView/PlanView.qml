@@ -623,6 +623,12 @@ QGCView {
                     {
                         name:               qsTr("Out"),
                         iconSource:         "/qmlimages/ZoomMinus.svg"
+                    },
+                    {
+                        name:                   "Optimize",
+                        iconSource:             "/qmlimages/map-route.svg"
+                        //alternateIconSource:    "/qmlimages/map-route_black.svg",
+                        //toggle:                 true
                     }
                 ]
 
@@ -646,6 +652,9 @@ QGCView {
                         break
                     case 6:
                         editorMap.zoomLevel -= 0.5
+                        break
+                    case 7:
+                        masterController.startCustomCode()
                         break
                     }
                 }
