@@ -588,7 +588,7 @@ bool PlanMasterController::syncInProgress(void) const
             _rallyPointController.syncInProgress();
 }
 
-QJsonDocument readJson(QString path)
+QJsonDocument PlanMasterController::readJson(QString path)
 {
     QString val;
     QFile file;
@@ -601,7 +601,7 @@ QJsonDocument readJson(QString path)
     return d;
 }
 
-void writeJson(QString path, QJsonDocument jsonDoc)
+void PlanMasterController::writeJson(QString path, QJsonDocument jsonDoc)
 {
     QFile file(path);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -612,9 +612,8 @@ void writeJson(QString path, QJsonDocument jsonDoc)
     }
 }
 
-QJsonObject showMissionSettingsDialog(QJsonObject missionSettings) {
-    bool accepted = false;
-    QDialog dialog(0);
+QJsonObject PlanMasterController::showMissionSettingsDialog(QJsonObject missionSettings) {
+    QDialog dialog(Q_NULLPTR);
     // Use a layout allowing to have a label next to each field
     QFormLayout form(&dialog);
 
@@ -669,7 +668,7 @@ QJsonObject showMissionSettingsDialog(QJsonObject missionSettings) {
         missionSettings["droneChargingTime"] = droneChargingSpinBox->value();
         missionSettings["droneChargeEfficiency"] = droneChargingEfficiencySpinBox->value();
         missionSettings["accept"] = true;
-        accepted = true;
+
     } else if (dialogCode == QDialog::Rejected)
     {
         missionSettings["accept"] = false;
@@ -696,18 +695,18 @@ void PlanMasterController::replyFinished(QNetworkReply* reply)
         QJsonDocument  jsonDoc = QJsonDocument::fromJson(temp, &error);
 
         if(error.error != 0) {
-            msgBox.critical(0,"Error", error.errorString());
+            msgBox.critical(Q_NULLPTR,"Error", error.errorString());
             return;
         }
         if (!jsonDoc.isObject()) {
-            msgBox.critical(0,"Error","Bad server response !");
+            msgBox.critical(Q_NULLPTR,"Error","Bad server response !");
             return;
         }
 
         QJsonObject responseJsonObject = jsonDoc.object();
 
         if(!responseJsonObject["error"].isNull()) {
-            msgBox.critical(0,"Error",responseJsonObject["error"].toString());
+            msgBox.critical(Q_NULLPTR,"Error",responseJsonObject["error"].toString());
             qDebug() <<responseJsonObject["error"];
             return;
         }
@@ -725,7 +724,7 @@ void PlanMasterController::replyFinished(QNetworkReply* reply)
         msgBox.setText("Success while executing external scripts!");
 
     } else {
-         msgBox.critical(0,"Error","Server error !");
+         msgBox.critical(Q_NULLPTR,"Error","Server error !");
     }
 }
 

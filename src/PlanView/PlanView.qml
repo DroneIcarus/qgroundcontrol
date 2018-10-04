@@ -580,11 +580,11 @@ QGCView {
                 color:              qgcPal.window
                 title:              qsTr("Plan")
                 z:                  QGroundControl.zOrderWidgets
-                showAlternateIcon:  [ masterController.dirty, false, false, false, false, false, false ]
-                rotateImage:        [ masterController.syncInProgress, false, false, false, false, false, false ]
-                animateImage:       [ masterController.dirty, false, false, false, false, false, false ]
-                buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true ]
-                buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom ]
+                showAlternateIcon:  [ masterController.dirty, false, false, false, false, false, false, false ]
+                rotateImage:        [ masterController.syncInProgress, false, false, false, false, false, false, false ]
+                animateImage:       [ masterController.dirty, false, false, false, false, false, false, false ]
+                buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true, true ]
+                buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom, true ]
                 maxHeight:          mapScale.y - toolStrip.y
 
                 property bool _showZoom: !ScreenTools.isMobile
@@ -625,7 +625,7 @@ QGCView {
                         iconSource:         "/qmlimages/ZoomMinus.svg"
                     },
                     {
-                        name:                   "Optimize",
+                        name:                   qsTr("Optimize"),
                         iconSource:             "/qmlimages/map-route.svg"
                         //alternateIconSource:    "/qmlimages/map-route_black.svg",
                         //toggle:                 true

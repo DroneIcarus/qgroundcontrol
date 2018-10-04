@@ -117,10 +117,10 @@ private slots:
     void _sendMissionComplete(void);
     void _sendGeoFenceComplete(void);
     void _sendRallyPointsComplete(void);
+    void replyFinished(QNetworkReply* reply);
 
 private:
     void _showPlanFromManagerVehicle(void);
-    void replyFinished(QNetworkReply* reply);
 
     MultiVehicleManager*    _multiVehicleMgr;
     Vehicle*                _controllerVehicle; ///< Offline controller vehicle
