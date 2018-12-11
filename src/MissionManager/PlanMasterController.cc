@@ -737,6 +737,9 @@ void PlanMasterController::startCustomCode()
     QJsonObject fenceJson;
     QJsonObject rallyJson;
     QString missionPlanner;
+    QString python;
+    QString errorString;
+    QMessageBox msgBox;
 
 #if defined (__macos__)
     missionPlanner = qgcApp()->applicationDirPath().toUtf8() + "/../../../../../MissionOptimizer";
@@ -786,19 +789,17 @@ void PlanMasterController::startCustomCode()
     querystr.addQueryItem("qgcPlan",strJson);
     querystr.addQueryItem("missionSettings",missionSettingsStr);
     myurl.setScheme("http");
-    myurl.setHost("icarus.hopto.org");
+    //myurl.setHost("icarus.hopto.org");
+    myurl.setHost("localhost");
     myurl.setPath("/drone/mission");
     myurl.setQuery(querystr);
     myurl.setPort(8080);
     request.setUrl(myurl);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() << "Calling server";
-    qDebug() << myurl;
-    restclient->get(request);
+    //qDebug() << "Calling server";
+    //qDebug() << myurl;
+   // restclient->get(request);
 
-
-
-/*
     // Filenames in the form of current date and time
     QDateTime now = QDateTime::currentDateTime();
     QString fileOriginalPlan = tr(qgcApp()->toolbox()->settingsManager()->appSettings()->missionSavePath().toUtf8().constData())
@@ -818,30 +819,17 @@ void PlanMasterController::startCustomCode()
     missionPlanner = qgcApp()->applicationDirPath().toUtf8() + "/../../../../../MissionOptimizer";
     python = "/usr/local/bin/python3";
 #else
-    missionPlanner = qgcApp()->applicationDirPath().toUtf8() + "/../../MissionOptimizer";
+    missionPlanner = qgcApp()->applicationDirPath().toUtf8() + "/../../Icarus-MissionOptimizer";
     python = "/usr/bin/python3";
 #endif
 
+    qDebug() << missionPlanner;
+
     scriptsProc->setWorkingDirectory(missionPlanner);
-
-    // Read mission settings from JSON file and transfer into JSON obj
-    QJsonDocument missionSettings = readJson(missionPlanner + "/missionSettings.json");
-    QJsonObject missionSettingsObj(missionSettings.object());
-
-    // Popup setting dialog
-    QJsonObject newMissionSettings = showMissionSettingsDialog(missionSettingsObj);
 
     if (!newMissionSettings["accept"].toBool()) {
         return;
     }
-
-    // Transfer new settings JSON obj into JSON doc and overwrite the file
-    QJsonDocument missionSettingsDoc(newMissionSettings);
-    writeJson(missionPlanner + "/missionSettings.json", missionSettingsDoc);
-
-    // Transfer settings JSON doc into compacted string to pass in args
-    QString missionSettingsStr(missionSettingsDoc.toJson(QJsonDocument::Compact));
-
     // Start MissionPlanner script with waypoints as args
     QStringList params = QStringList() << missionPlanner + "/main.py" << fileOriginalPlan << fileGeneratedPlan << missionSettingsStr;
     scriptsProc->start(python, params);
@@ -871,5 +859,5 @@ void PlanMasterController::startCustomCode()
     }
 
     delete scriptsProc;
-    */
+
 }
