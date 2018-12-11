@@ -625,10 +625,8 @@ QGCView {
                         iconSource:         "/qmlimages/ZoomMinus.svg"
                     },
                     {
-                        name:                   qsTr("Optimize"),
-                        iconSource:             "/qmlimages/map-route.svg"
-                        //alternateIconSource:    "/qmlimages/map-route_black.svg",
-                        //toggle:                 true
+                        name:               qsTr("Optimize"),
+                        iconSource:         "/qmlimages/Icarus.png"
                     }
                 ]
 
