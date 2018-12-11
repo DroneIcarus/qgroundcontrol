@@ -580,11 +580,11 @@ QGCView {
                 color:              qgcPal.window
                 title:              qsTr("Plan")
                 z:                  QGroundControl.zOrderWidgets
-                showAlternateIcon:  [ masterController.dirty, false, false, false, false, false, false ]
-                rotateImage:        [ masterController.syncInProgress, false, false, false, false, false, false ]
-                animateImage:       [ masterController.dirty, false, false, false, false, false, false ]
-                buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true ]
-                buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom ]
+                showAlternateIcon:  [ masterController.dirty, false, false, false, false, false, false, false ]
+                rotateImage:        [ masterController.syncInProgress, false, false, false, false, false, false, false ]
+                animateImage:       [ masterController.dirty, false, false, false, false, false, false, false ]
+                buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true, true ]
+                buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom, true ]
                 maxHeight:          mapScale.y - toolStrip.y
 
                 property bool _showZoom: !ScreenTools.isMobile
@@ -623,6 +623,10 @@ QGCView {
                     {
                         name:               qsTr("Out"),
                         iconSource:         "/qmlimages/ZoomMinus.svg"
+                    },
+                    {
+                        name:               qsTr("Optimize"),
+                        iconSource:         "/qmlimages/Icarus.png"
                     }
                 ]
 
@@ -646,6 +650,9 @@ QGCView {
                         break
                     case 6:
                         editorMap.zoomLevel -= 0.5
+                        break
+                    case 7:
+                        masterController.startCustomCode()
                         break
                     }
                 }

@@ -69,6 +69,7 @@ public:
     Q_INVOKABLE void saveToKml(const QString& filename);
     Q_INVOKABLE void removeAll(void);                       ///< Removes all from controller only, synce required to remove from vehicle
     Q_INVOKABLE void removeAllFromVehicle(void);            ///< Removes all from vehicle and controller
+    Q_INVOKABLE void startCustomCode();
 
     MissionController*      missionController(void)     { return &_missionController; }
     GeoFenceController*     geoFenceController(void)    { return &_geoFenceController; }
@@ -85,6 +86,10 @@ public:
     QStringList loadNameFilters (void) const;
     QStringList saveNameFilters (void) const;
     QStringList fileKmlFilters  (void) const;
+
+    QJsonObject showMissionSettingsDialog(QJsonObject missionSettings);
+    QJsonDocument readJson(QString path);
+    void writeJson(QString path, QJsonDocument jsonDoc);
 
     QJsonDocument saveToJson    ();
 
@@ -112,6 +117,7 @@ private slots:
     void _sendMissionComplete(void);
     void _sendGeoFenceComplete(void);
     void _sendRallyPointsComplete(void);
+    void replyFinished(QNetworkReply* reply);
 
 private:
     void _showPlanFromManagerVehicle(void);

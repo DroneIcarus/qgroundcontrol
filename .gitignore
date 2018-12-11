@@ -86,3 +86,15 @@ src/latex/
 Qt*-linux*.tar.*
 
 libs/airmapd/include/boost
+
+qgroundcontrol_qmlcache\.qrc
+
+qt-unified-linux-x64-online\.run
+
+src_Airmap_airmap_qmlcache\.qrc
+
+src_Airmap_dummy_airmap_dummy_qmlcache\.qrc
+
+src_FirmwarePlugin_APM_APMResources_qmlcache\.qrc
+
+src_FirmwarePlugin_PX4_PX4Resources_qmlcache\.qrc
